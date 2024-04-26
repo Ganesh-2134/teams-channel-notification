@@ -1,0 +1,125 @@
+
+------------------------------
+guidewire read and write permission:
+
+chown -R guidewire:guidewire /path
+--------------------------
+PET Logs Check:
+
+IF server goes down check this logs in PET
+path  /apps/mulesoft-esb/logs/mule_ee.log  ======> Logs Path
+1.ram, process or specs - insuffient
+2. application error - ask developr(check like backend api error)
+cpu usages:   free -m
+Disk space: df -h and nvme list
+sudo lsblk
+ps -ef | grep -i java
+ps -ef | grep guidewire
+ps -ef | grep mule
+ls -lart
+PET SIT path for Wrapper.conf : /apps/mulesoft-esb/conf/wrapper.conf
+---------------------
+net user /domain mhgi     ----- to check Rafc ID lock or not
+----------------------
+service mule stop
+service mule start
+---------
+service guidewire stop
+service guidewire start
+------------------
+
+To find specific word in the file & edit: vi +/word filename  ------ vi +/<custom-exclude filter-type="STARTSWITH" app-agent-config.xml
+
+------------------
+Local windows cli to login aws SIT env:
+$Env:terraform="C:\Users\MHGI\Downloads\terraform_1.5.5_windows_amd64\terraform.exe"
+
+------------------
+
+
+terraform fmt --recursive
+---------------------------------
+CLI for Run ssm document on instance:
+ 
+aws ssm create-association --name "SSM_DOCUMENT_NAME" --targets "Key=InstanceIds,Values=i-0000000"
+---------------------------------
+
+
+cron(0 9 ? * MON-FRI *)
+
+
+------------------------------------------------------------------------------
+
+# MuleSoftAPIManagement <#MuleSoftAPIManagement@directlinegroup.onmicrosoft.com>
+
+qvbc permission to be copied for you only pet
+-----------------------------
+
+home/guidewire
+
+---------------------
+ls -lt mule-domain-default.log
+
+ls -ltr |grep -i mule-domain-default*
+=======================
+Command to delete secrets - aws secretsmanager delete-secret --secret-id <secret_name> --force-delete-without-recovery
+
+
+=====
+If Cloud Formation stack rollback error:
+login to the respective aws account uinsg profile, and go to the pipeline path
+terraform init
+terraform state list  ---(Find the created(error) stack and mentioned it below)
+terraform.exe taint 'module.ec2_cc_e2ecv_dcm_pipeline.random_string.stack_postfix[\"pc1\"]'
+
+=================
+
+
+terraform.exe taint 'module.ec2_cc_trn_dcm_pipeline.random_string.stack_postfix[\"cccm1\"]'
+terraform.exe taint 'module.ec2_cc_trn_dcm_pipeline.random_string.stack_postfix[\"mu1\"]'
+terraform.exe taint 'module.ec2_cc_trn_dcm_pipeline.random_string.stack_postfix[\"cc\"]'
+
+
+
+module.ec2_cc_trn_dcm_pipeline.random_string.stack_postfix["cccm1"]
+module.ec2_cc_trn_dcm_pipeline.random_string.stack_postfix["mu1"]
+module.ec2_cc_trn_dcm_pipeline.random_string.stack_postfix["pc1"]
+
+
+======================================================
+login to instance as root and run below steps:
+/bin/bash
+  aws s3 cp s3://hvcp-common-dependencies-512716825741/ec2-build.sh /tmp/.
+  aws s3 cp s3://hvcp-guidewire-dependencies-512716825741/ansible/setup_gw_withoutUser.sh /tmp/.
+cd /tmp
+chmod 755 *.sh
+./ec2-build.sh
+./setup_gw_withoutUser.sh pc hvcp nft hvcp-nft-pc.int.hvcptest.dlgmalz.co.uk all
+mkdir -p /apps/guidewire/properties/
+
+--------------------------------
+${GWUrlRootContext} hvcp ${TagEnvironment} hvcp-${TagEnvironment}-${Tagapplicationshortname}.${Domain} ${NodeType}
+\nmkdir -p /apps/guidewire/properties/\n"
+
+Check the above code works are not : 
+service guidewire-<pc/cc/ab>-<hostname> status
+example for above : service guidewire-pc-hvcpnftpc1 status
+
+ls -ltr /etc/sysconfig/gu*
+ 
+ls -ltr /apps/guidewire/tomcat-*/
+====================================================
+
+service guidewire-cc-hvcptrncc1 status
+
+===================================
+[13:05] Chauhan, Sonu (Technology)
+Can qualys also affect timezone.. just thinking..
+[13:07] Chauhan, Sonu (Technology)
+because it just keeps appearing in my search of grep -irzl "timezone" /etc/ and grep -irzl "UTC" /etc/
+File content is not readable. 
+/etc/qualys/cloud-agent/magic.mgc
+=============================
+New Cyber ark link - 
+https://portal.alero.eu/
+https://dlg.cyberark.cloud
